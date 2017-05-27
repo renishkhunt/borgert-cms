@@ -57,6 +57,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], fu
         Route::post('categorys/update/{id}', 'Admin\Blog\CategorysController@update')->name('categorys.update');
         Route::post('categorys/destroy', 'Admin\Blog\CategorysController@destroy')->name('categorys.destroy');
 
+        Route::resource('tags', 'Admin\Blog\TagsController');
+        Route::post('tags/update/{id}', 'Admin\Blog\TagsController@update')->name('tags.update');
+        Route::post('tags/destroy', 'Admin\Blog\TagsController@destroy')->name('tags.destroy');
         // Posts
         Route::resource('posts', 'Admin\Blog\PostsController');
         Route::post('posts/update/{id}', 'Admin\Blog\PostsController@update')->name('posts.update');

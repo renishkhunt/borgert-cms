@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Blog\Posts;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Blog\Categorys;
+use App\Models\Admin\Blog\CategoryPosts;
+use App\Models\Admin\Blog\Tags;
+use App\Models\Admin\Blog\TagsPosts;
 
 class PostsController extends Controller
 {
@@ -34,8 +37,9 @@ class PostsController extends Controller
     public function create()
     {
         $categorys = Categorys::all();
+        $tags = Tags::All();
 
-        return view('admin.blog.posts.create', ['categorys' => $categorys]);
+        return view('admin.blog.posts.create', ['categorys' => $categorys,'tags' => $tags]);
     }
 
     /**
@@ -49,15 +53,14 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'publish_at' => 'required',
-            'category_id' => 'required|integer',
+            'categorys_id' => 'required',
+            'tags_id' => 'required',
             'title' => 'required',
             'description' => 'required',
         ]);
-
         $post = new Posts();
 
         $post->publish_at = new Carbon($request->publish_at);
-        $post->category_id = $request->category_id;
         $post->title = $request->title;
         $post->description = $request->description;
         $post->status = (isset($request->status) ? 1 : 0);
@@ -66,6 +69,27 @@ class PostsController extends Controller
         $post->seo_keywords = $request->seo_keywords;
 
         $post->save();
+
+        $categories_posts = [];
+        $tags_posts = [];
+        if( isset($request->categorys_id) && !empty($request->categorys_id) ){
+            foreach ($request->categorys_id as $key => $value) {
+                $categories_posts[] = [
+                    'category_id' => $value,
+                    'post_id' => $post->id
+                ];
+            }
+        }
+        if( isset($request->tags_id) && !empty($request->tags_id) ){
+            foreach ($request->tags_id as $key => $value) {
+                $tags_posts[] = [
+                    'tag_id' => $value,
+                    'post_id' => $post->id
+                ];
+            }
+        }
+        CategoryPosts::insert($categories_posts);
+        TagsPosts::insert($tags_posts);
 
         $user = \Auth::User();
         $path_from = self::UPLOAD_PATH.'temp-'.$user->id.'/';
@@ -90,9 +114,16 @@ class PostsController extends Controller
     public function edit($id)
     {
         $categorys = Categorys::all();
-        $post = Posts::find($id);
+        $tags = Tags::all();
+        $post = Posts::with(['categorys_id','tags_id'])->where('id','=',$id)->first();
 
-        return view('admin.blog.posts.edit', ['categorys' => $categorys, 'post' => $post]);
+        $post_categorys = $post->categorys_id;
+        $selected_category = $post_categorys->pluck('category_id')->all();
+
+        $post_tags = $post->tags_id;
+        $selected_tags = $post_tags->pluck('tag_id')->all();
+
+        return view('admin.blog.posts.edit', ['categorys' => $categorys, 'post' => $post,'tags' => $tags,'selected_category' => $selected_category, 'selected_tags' => $selected_tags]);
     }
 
     /**
@@ -107,15 +138,15 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'publish_at' => 'required',
-            'category_id' => 'required|integer',
+            'categorys_id' => 'required',
+            'tags_id' => 'required',
             'title' => 'required',
             'description' => 'required',
         ]);
-
+        
         $post = Posts::find($request->id);
 
         $post->publish_at = new Carbon($request->publish_at);
-        $post->category_id = $request->category_id;
         $post->title = $request->title;
         $post->description = $request->description;
         $post->status = (isset($request->status) ? 1 : 0);
@@ -124,6 +155,43 @@ class PostsController extends Controller
         $post->seo_keywords = $request->seo_keywords;
 
         $post->save();
+
+        $post_categorys = $post->categorys_id;
+        $selected_category = $post_categorys->pluck('category_id')->all();
+        $post_tags = $post->tags_id;
+        $selected_tags = $post_tags->pluck('tag_id')->all();
+        $categories = $request->categorys_id;
+        $tags = $request->tags_id;
+        
+        $removedCategory = array_diff($selected_category, $categories);
+        $selected_category = array_diff($categories, $selected_category);
+
+        $removedTags = array_diff($selected_tags, $tags);
+        $selected_tags = array_diff($tags, $selected_tags);
+
+        $categories_posts = [];
+        $tags_posts = [];
+        foreach ($selected_category as $key => $value) {
+            $categories_posts[] = [
+                'category_id' => $value,
+                'post_id' => $post->id
+            ];
+        }
+        foreach ($selected_tags as $key => $value) {
+            $tags_posts[] = [
+                'tag_id' => $value,
+                'post_id' => $post->id
+            ];
+        }
+        CategoryPosts::insert($categories_posts);
+        TagsPosts::insert($tags_posts);
+
+        if( !empty($removedCategory) ){
+            CategoryPosts::destroy($removedCategory);
+        }
+        if( !empty($removedTags) ){
+            TagsPosts::destroy($removedTags);
+        }
 
         \Session::flash('success', trans('admin/blog.posts.update.messages.success'));
 

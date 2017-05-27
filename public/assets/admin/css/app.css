@@ -156,7 +156,6 @@ h5 {
   padding: 33px 25px;
 }
 .pace-done .nav-header {
-  -webkit-transition: all 0.4s;
   transition: all 0.4s;
 }
 .nav > li.active {
@@ -300,12 +299,10 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .pace-done li.active,
 .pace-done #page-wrapper,
 .pace-done .footer {
-  -webkit-transition: all 0.4s;
   transition: all 0.4s;
 }
 .navbar-fixed-top {
   background: #fff;
-  -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   border-bottom: 1px solid #e7eaec !important;
   z-index: 2030;
@@ -949,7 +946,6 @@ fieldset[disabled] .btn-white.active {
 .btn-outline {
   color: inherit;
   background-color: transparent;
-  -webkit-transition: all .5s;
   transition: all .5s;
 }
 .btn-rounded {
@@ -1113,7 +1109,6 @@ button.dim:active:before {
 .onoffswitch-inner {
   width: 200%;
   margin-left: -100%;
-  -webkit-transition: margin 0.3s ease-in 0s;
   transition: margin 0.3s ease-in 0s;
 }
 .onoffswitch-inner:before,
@@ -1152,7 +1147,6 @@ button.dim:active:before {
   top: 0;
   bottom: 0;
   right: 44px;
-  -webkit-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
@@ -1480,7 +1474,6 @@ a.list-group-item.active:focus {
   border-radius: 0;
 }
 .elements-list li.active {
-  -webkit-transition: none;
   transition: none;
 }
 .element-detail-box {
@@ -1824,7 +1817,6 @@ div.dt-button-info {
   color: inherit;
   display: block;
   padding: 6px 12px;
-  -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   width: 100%;
   font-size: 14px;
@@ -1910,7 +1902,6 @@ div.dt-button-info {
   display: block;
   width: 200%;
   margin-left: -100%;
-  -webkit-transition: margin 0.3s ease-in 0s;
   transition: margin 0.3s ease-in 0s;
 }
 .onoffswitch-inner:before,
@@ -1951,7 +1942,6 @@ div.dt-button-info {
   top: 0;
   bottom: 0;
   right: 36px;
-  -webkit-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
@@ -2258,7 +2248,6 @@ div.dt-button-info {
   border: 1px dashed #bbb;
   min-height: 100px;
   background-color: #e5e5e5;
-  background-image: -webkit-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff), -webkit-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff);
   background-image: linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff), linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff);
   background-size: 60px 60px;
   background-position: 0 0, 30px 30px;
@@ -5481,11 +5470,8 @@ body.body-small .vote-icon {
   position: relative;
   height: 0;
   overflow: hidden;
-  -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
-  -webkit-transition-duration: .35s;
   transition-duration: .35s;
-  -webkit-transition-property: height, visibility;
   transition-property: height, visibility;
 }
 /*

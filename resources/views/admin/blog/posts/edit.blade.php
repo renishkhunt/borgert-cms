@@ -40,16 +40,48 @@
                                 <label class="col-sm-2 control-label">@lang('admin/_globals.forms.publish_at'):</label>
                                 <div class="col-sm-10"><input type="text" name="publish_at" class="form-control datetimepicker" value="{{ $post->publish_at }}"></div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">@lang('admin/_globals.forms.category'):</label>
                                 <div class="col-sm-10">
-                                    <select name="category_id" class="form-control">
-                                        @foreach($categorys as $ky => $category)
-                                            <option value="{{ $category->id }}" {{ $post->category_id === $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if($categorys->count() > 0)
+                                        <select multiple name="categorys_id[]" class="form-control make-select2">
+                                            @foreach($categorys as $key => $category)
+                                                @if( in_array($category->id, old('categorys_id',array()) ) )
+                                                    <option selected value="{{ $category->id }}">{{ $category->title }}</option>
+                                                @elseif( in_array($category->id, $selected_category) )
+                                                    <option selected value="{{ $category->id }}">{{ $category->title }}</option>
+                                                @else
+                                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    @else 
+                                        <a href="{{ route('admin.blog.categorys.create') }}" class="btn dim btn-primary"><i class="fa fa-plus"></i> @lang('admin/_globals.buttons.create')</a> @lang('admin/blog.categorys.index.is_empty')
+                                    @endif
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@lang('admin/_globals.forms.tag'):</label>
+                                <div class="col-sm-10">
+                                    @if($tags->count() > 0)
+                                        <select multiple name="tags_id[]" class="form-control make-select2">
+                                            @foreach($tags as $key => $tag)
+                                                @if( in_array($tag->id, old('tags_id',array()) ) )
+                                                    <option selected value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                                @elseif( in_array($tag->id,$selected_tags) )
+                                                    <option selected value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                                @else
+                                                    <option value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    @else 
+                                        <a href="{{ route('admin.blog.tags.create') }}" class="btn dim btn-primary"><i class="fa fa-plus"></i> @lang('admin/_globals.buttons.create')</a> @lang('admin/blog.tags.index.is_empty')
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">@lang('admin/_globals.forms.title'):</label>
                                 <div class="col-sm-10"><input type="text" name="title" class="form-control" value="{{ $post->title }}"></div>

@@ -53,6 +53,7 @@ return [
         ],
         'title' => 'Title',
         'category' => 'Category',
+        'tag' => 'Tag',
         'content' => 'Content',
         'description' => 'Description',
         'keywords' => 'Keywords',

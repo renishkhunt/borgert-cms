@@ -31,9 +31,16 @@ class Posts extends Model
 
     // -------------------------------------------------------------------------------
 
-    public function category()
+    public function categorys_id()
     {
-        return $this->belongsTo('App\Models\Admin\Blog\Categorys');
+        return $this->hasMany('App\Models\Admin\Blog\CategoryPosts','post_id');
+    }
+
+    // -------------------------------------------------------------------------------
+
+    public function tags_id()
+    {
+        return $this->hasMany('App\Models\Admin\Blog\TagsPosts','post_id');
     }
 
     // -------------------------------------------------------------------------------

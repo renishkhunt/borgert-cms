@@ -5,6 +5,7 @@ return [
     'module' => 'Blog',
 
     'submodule' => [
+        'tags' => 'Tags',
         'categorys' => 'Categories',
         'comments' => 'Comments',
         'posts' => 'Posts',
@@ -40,6 +41,40 @@ return [
             'messages' => [
                 'info' => 'No category was selected.',
                 'success' => 'The categories were successfully removed!',
+            ],
+        ],
+    ],
+
+    'tags' => [
+        'index' => [
+            'title' => 'List tags (:total)',
+            'is_empty' => 'No tag registered.',
+        ],
+
+        'create' => [
+            'title' => 'Create tag',
+        ],
+
+        'store' => [
+            'messages' => [
+                'success' => 'The tag has been created successfully!',
+            ],
+        ],
+
+        'edit' => [
+            'title' => 'Edit tag',
+        ],
+
+        'update' => [
+            'messages' => [
+                'success' => 'The tag was updated successfully!',
+            ],
+        ],
+
+        'destroy' => [
+            'messages' => [
+                'info' => 'No tag was selected.',
+                'success' => 'The tag were successfully removed!',
             ],
         ],
     ],

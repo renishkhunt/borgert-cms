@@ -14,7 +14,10 @@
 
             <!-- Font Awesome Icons -->
             <link href="{!! asset('assets/components/font-awesome/css/font-awesome.min.css') !!}" rel="stylesheet">
-            
+
+            <!-- Select2.css -->
+            <link href="{!! asset('assets/components/select2/dist/css/select2.min.css') !!}" rel="stylesheet">
+
             <!-- Summernote -->
             <link href="{!! asset('assets/components/summernote/dist/summernote.css') !!}" rel="stylesheet">
             
@@ -63,6 +66,7 @@
                         <li>
                             <a href="#"><i class="fa fa-comments"></i> <span class="nav-label">@lang('admin/blog.module')</span> <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li><a href="{{ route('admin.blog.tags.index') }}">@lang('admin/blog.submodule.tags')</a></li>
                                 <li><a href="{{ route('admin.blog.categorys.index') }}">@lang('admin/blog.submodule.categorys')</a></li>
                                 <li><a href="{{ route('admin.blog.posts.index') }}">@lang('admin/blog.submodule.posts')</a></li>
                                 <li><a href="{{ route('admin.blog.comments.index') }}">@lang('admin/blog.submodule.comments')</a></li>
@@ -139,6 +143,9 @@
 
             <!-- Bootstrap -->
             <script type="text/javascript" src="{!! asset('assets/components/bootstrap/dist/js/bootstrap.min.js') !!}"></script>
+
+            <!-- Select2 -->
+            <script type="text/javascript" src="{!! asset('assets/components/select2/dist/js/select2.full.min.js') !!}"></script>
             
             <!-- Menu (Scroll && Toogle ) -->
             <script type="text/javascript" src="{!! asset('assets/components/slimScroll/jquery.slimscroll.min.js') !!}"></script>
